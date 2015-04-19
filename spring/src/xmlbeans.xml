@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:c="http://www.springframework.org/schema/c" xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="
+	    http://www.springframework.org/schema/tx  http://www.springframework.org/schema/tx/spring-tx.xsd
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+	<bean id="myBox" class="com.beans.Box">
+		<property name="color" value="red" />
+		<property name="kind" value="big" />
+		<property name="things">
+			<list value-type="java.lang.String">
+				<value>thing1</value>
+				<value>thing2</value>
+				<value>thing3</value>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="proxyCurstom" class="com.beans.CurstomProxy" autowire="byType" />
+	<bean id="proxyCurstom2" class="com.beans.CurstomProxy"
+		c:trueCurstom-ref="curstom" />
+
+	<bean id="sb" class="com.beans.SingletonBean" factory-method="getInstance" />
+
+	<bean id="aop" class="com.aops.MyAop" />
+	<bean id="test" class="com.test.Test" />
+
+	<aop:config>
+		<aop:aspect ref="aop">
+
+			<aop:pointcut expression="execution (* com.test.Test.fun(..))"
+				id="pc" />
+			<aop:pointcut
+				expression="execution (* com.test.Test.funArgs(String)) and args(things)"
+				id="pcArgs" />
+
+			<aop:before method="display" pointcut-ref="pc" />
+			<aop:before method="display2" pointcut-ref="pcArgs"
+				arg-names="things" />
+		</aop:aspect>
+	</aop:config>
+
+	<aop:aspectj-autoproxy />
+
+	<bean id="annAop" class="com.aops.AnnotationAop" />
+	<bean id="b1" class="com.beans.Box" scope="prototype" />
+
+	<bean id="abBean" class="com.beans.AbstractBean">
+		<lookup-method name="fun" bean="b1" />
+	</bean>
+
+	<bean id="dataSource" class="org.apache.tomcat.dbcp.dbcp2.BasicDataSource">
+
+		<property name="username" value="root" />
+		<property name="password" value="1111" />
+		<property name="url" value="jdbc:mysql://localhost:3306/test" />
+		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
+	</bean>
+
+	<bean id="jdbcTemple" class="org.springframework.jdbc.core.JdbcTemplate">
+		<constructor-arg name="dataSource" ref="dataSource" />
+	</bean>
+
+
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+		<property name="dataSource" ref="dataSource"/>
+
+		<property name="mappingResources">
+			<list>
+				<value>com/beans/Curstom.hbm.xml</value>
+			</list>
+		</property>
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
+			</props>
+		</property>
+	</bean>
+
+	<!-- The transaction manager -->
+	<bean id="transactionManager"
+		class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+		<tx:annotation-driven />
+	
+
+	<bean id="hibernateDao" class="com.test.TestHibernateDao" />
+
+</beans>

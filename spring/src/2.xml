@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:c="http://www.springframework.org/schema/c" xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="
+	    http://www.springframework.org/schema/tx  http://www.springframework.org/schema/tx/spring-tx.xsd
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+	<tx:annotation-driven />
+
+	<bean id="dataSource" class="org.apache.tomcat.dbcp.dbcp2.BasicDataSource">
+		<property name="username" value="root" />
+		<property name="password" value="1111" />
+		<property name="url" value="jdbc:mysql://localhost:3306/test" />
+		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
+	</bean>
+
+
+	<bean id="configLocation" class="org.springframework.core.io.ClassPathResource">
+		<constructor-arg name="path" value="hibernate.cfg.xml"/>
+	</bean>
+
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+			
+			
+		<property name="configLocation" ref="configLocation">
+			
+		</property>
+		
+	</bean>
+
+	<!-- The transaction manager -->
+	<bean id="transactionManager"
+		class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+
+	<bean id="hibernateDao" class="com.test.TestHibernateDao" />
+
+</beans>
