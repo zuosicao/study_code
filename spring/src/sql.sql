@@ -10,4 +10,4 @@ UPDATE curstom SET age = 22;
 INSERT INTO curstom (name,sex) values ('ruancong','male');
 INSERT INTO curstom (name,sex) values ('c2','female');
 
-delete    哈哈林ss
+delete    哈哈林ss2s
