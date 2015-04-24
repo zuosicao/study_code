@@ -11,3 +11,4 @@ INSERT INTO curstom (name,sex) values ('ruancong','male');
 INSERT INTO curstom (name,sex) values ('c2','female');
 
 delete    哈哈林ss2s
+这是来自newBranch_rc
