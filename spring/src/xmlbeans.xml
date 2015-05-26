@@ -7,6 +7,7 @@
         http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
         http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
 
+	
 	<bean id="myBox" class="com.beans.Box">
 		<property name="color" value="red" />
 		<property name="kind" value="big" />
