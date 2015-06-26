@@ -4,6 +4,7 @@ person_id bigint auto_increment primary key,
 age int,
 firstname varchar(20),
 lastname varchar(20)
+
 );
 
 create table person_event
