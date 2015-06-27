@@ -3,17 +3,15 @@ package com.test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-import com.beans.AbstractBean;
-import com.beans.Box;
 import com.beans.Curstom;
 
 public class Test {
 	public static void main(String[] args) {
 		ApplicationContext context = new ClassPathXmlApplicationContext(new String[]{"xmlbeans.xml","annotationbeans.xml"});
-		/*Curstom cs = context.getBean("curstom",Curstom.class);
+		Curstom cs = context.getBean("curstom",Curstom.class);
 		System.out.println(cs.getMyBox().getThings().size());
 	 
-		CurstomProxy cp = context.getBean("proxyCurstom",CurstomProxy.class);
+		/*CurstomProxy cp = context.getBean("proxyCurstom",CurstomProxy.class);
 		cp.goShoppiing();
 		
 		Bean1 bean1 = context.getBean(Bean1.class);
@@ -39,9 +37,9 @@ public class Test {
 		
 		//System.out.println(testDao.getAllCurstoms().size());
 		
-		TestHibernateDao hibernateDao = context.getBean("hibernateDao",TestHibernateDao.class);
+		/*TestHibernateDao hibernateDao = context.getBean("hibernateDao",TestHibernateDao.class);
 		Curstom cs = hibernateDao.getCurstomById(1);
-		System.out.println(cs.getName());
+		System.out.println(cs.getName());*/
 	}
 	
 	public void fun()

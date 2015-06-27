@@ -21,4 +21,9 @@ public class TestHibernateDao {
     	
     	return cs;
     }
+	
+	public TestHibernateDao()
+	{
+		System.out.println("TestHibernateDao 在配置文件刚被加载的时候就已经被初始化了！");
+	}
 }
