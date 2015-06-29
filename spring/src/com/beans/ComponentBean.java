@@ -1,5 +1,6 @@
 package com.beans;
 
+import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -14,5 +15,13 @@ public class ComponentBean {
 		this.name = name;
 	}
 	
+	@Bean(name="componentBox")
+	public Box componentBox()
+	{
+		Box rtn = new Box();
+		rtn.setKind("componentBox");
+		return rtn;
+		
+	}
 	
 }

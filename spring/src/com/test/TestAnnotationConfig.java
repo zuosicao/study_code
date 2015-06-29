@@ -2,6 +2,7 @@ package com.test;
 
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
+import com.beans.Box;
 import com.beans.ComponentBean;
 import com.config.AppConfig;
 
@@ -15,7 +16,10 @@ public class TestAnnotationConfig {
 	/*	Curstom curstom = context.getBean(Curstom.class);
 		System.out.println(curstom.getMyBox().getKind());*/
 		
-		ComponentBean cb = context.getBean(ComponentBean.class);
-		System.out.println(cb.getName());
+		/*ComponentBean cb = context.getBean(ComponentBean.class);
+		System.out.println(cb.getName());*/
+		
+		Box componentBox = context.getBean(Box.class,"componentBox");
+		System.out.println(componentBox.getKind());
 	}
 }

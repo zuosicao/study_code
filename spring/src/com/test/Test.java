@@ -7,6 +7,7 @@ import com.beans.Curstom;
 
 public class Test {
 	public static void main(String[] args) {
+		
 		ApplicationContext context = new ClassPathXmlApplicationContext(new String[]{"xmlbeans.xml","annotationbeans.xml"});
 		Curstom cs = context.getBean("curstom",Curstom.class);
 		System.out.println(cs.getMyBox().getThings().size());

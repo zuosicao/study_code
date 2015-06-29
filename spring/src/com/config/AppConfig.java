@@ -2,6 +2,7 @@ package com.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
 
 import com.beans.Box;
 import com.beans.Curstom;
@@ -17,14 +18,14 @@ public class AppConfig {
     	return new MyServiceImpl();
     }
 	
-	@Bean
+/*	@Bean
 	public Box myBox()
 	{
 		Box myBox = new Box();
 		myBox.setColor("red");
 		myBox.setKind("kind1");
 		return myBox;
-	}
+	}*/
 	
 	@Bean
 	public Curstom myCurstom()
