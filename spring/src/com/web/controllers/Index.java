@@ -10,7 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.web.beans.Student;
-import com.web.services.StudentSerivce;
+import com.web.services.interfaces.StudentSerivce;
 
 @Controller
 public class Index {

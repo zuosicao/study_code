@@ -24,6 +24,6 @@ public class TestHibernateDao {
 	
 	public TestHibernateDao()
 	{
-		System.out.println("TestHibernateDao тзеДжцнд╪Ч╦у╠╩╪сть╣дй╠╨Р╬мря╬╜╠╩ЁУй╪╩╞акё║");
+		System.out.println("TestHibernateDao О©╫О©╫О©╫О©╫О©╫О©╫О©╫д╪О©╫О©╫у╠О©╫О©╫О©╫О©╫ь╣О©╫й╠О©╫О©╫О©╫О©╫я╬О©╫О©╫О©╫О©╫О©╫й╪О©╫О©╫О©╫кёО©╫");
 	}
 }

@@ -12,6 +12,7 @@
 <body>
 <h1>学生列表展示</h1>
 <ul>
+
 	<c:forEach items="${pageStus}" var="stu">
 		<li>
 			姓名：${stu.name}&nbsp;年龄：${stu.age}
