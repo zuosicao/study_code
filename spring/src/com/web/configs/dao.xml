@@ -6,10 +6,10 @@
         http://www.springframework.org/schema/beans/spring-beans.xsd
         http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
 
-     
+     <!-- 把那impls下被@Repository标记的扫描进入容器 -->
      <context:component-scan base-package="com.web.dao.impls"/>
     
-    <bean  id="dataSource"  class="org.apache.commons.dbcp.BasicDataSource">
+    <bean  id="dataSource"  class="org.springframework.jdbc.datasource.DriverManagerDataSource">
     	<property name="username" value="root" />
 		<property name="password" value="1111" />
 		<property name="url" value="jdbc:mysql://localhost:3306/spring" />

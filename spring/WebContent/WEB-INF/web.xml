@@ -11,14 +11,19 @@
   <context-param>
   	<param-name>contextConfigLocation</param-name>
   	<param-value>
-  		classpath:com/web/configs/dao.xml
-  	    classpath:com/web/configs/services.xml
+  		classpath:com/web/configs/*.xml
+  	   <!--  classpath:com/web/configs/services.xml -->
   	</param-value>
   </context-param>
   
  <servlet>
  	<servlet-name>controller</servlet-name>
  	<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+ 	<init-param>
+ 		<param-name>contextConfigLocation</param-name>
+ 		<param-value>classpath:com/web/configs/controller-servlet.xml</param-value>
+ 	</init-param>
+ 
  	<load-on-startup>1</load-on-startup>
  </servlet>
  

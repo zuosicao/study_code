@@ -19,6 +19,7 @@ public class TestHibernateDao {
     	
     	Curstom cs = (Curstom)session.get(Curstom.class, curstomId);
     	
+    	
     	return cs;
     }
 	
