@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+ <!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.1//EN"
+	"http://struts.apache.org/dtds/struts-2.1.dtd">
+
+ <struts>
+ 	
+ 
+ 	<package name="struts2" extends="json-default" namespace="/">
+ 	
+ 	<interceptors>
+ 		<interceptor name="myIntercepter" class="cong.ruan.intercepter.MyIntercepter"></interceptor>
+ 	</interceptors>
+ 	
+ 	
+ 		  <global-results>
+        	<result name="error">/error.jsp</result>
+        </global-results>
+ 		
+ 		<global-exception-mappings>
+            <exception-mapping result="error" exception="java.lang.Throwable"/>
+        </global-exception-mappings>
+        
+        <action name="testJson" class="cong.ruan.action.TestJson">
+			<result type="json">
+				<param name="includeProperties">
+				name
+				</param>
+			</result>
+		</action>
+        
+        <action name="error" class="cong.ruan.action.Error">
+        	<result name="success">/validate.jsp</result>
+        </action>
+        
+ 		<action name="validate" class="cong.ruan.action.Validate">
+ 			<result name="input">/validate.jsp</result>
+ 		</action>
+ 		
+ 		<action name="tagTest" class="cong.ruan.action.TagTest">
+ 			<result name="success">tagResult.jsp</result>
+ 		</action>
+ 		
+ 		<action name="opt">
+ 			<result>/WEB-INF/test/opt.jsp</result>
+ 		</action>
+ 		
+ 		<action name="opt*" method="{1}" class="cong.ruan.action.Option">
+ 			<result name="success">/WEB-INF/test/opt.jsp</result>
+ 		</action>
+ 		
+ 		<action name="login" >
+ 			<result>/WEB-INF/user/login.jsp</result>
+ 		</action>
+ 		
+ 		<action name="loginAction" class="cong.ruan.action.LoginAction">
+ 			<result name="fail" >/WEB-INF/user/login.jsp</result>
+ 			<result name="success">/WEB-INF/user/ok.jsp</result>
+ 		</action>
+ 		
+ 		<action name="nest" class="cong.ruan.action.Nest">
+ 			<result name="success">/nest.jsp</result>
+ 		</action>
+ 		
+ 		<action name="testNest">
+ 			<result>/testNest.jsp</result>
+ 		</action>
+ 		<action name="form" class="cong.ruan.action.Form">
+ 			<result name="success">/form.jsp
+ 				
+ 			</result>
+ 		</action>
+ 		
+ 		<action name="testIntercepter" class="cong.ruan.action.TestIntecepter">
+ 			<interceptor-ref name="defaultStack"></interceptor-ref>
+ 			<interceptor-ref name="myIntercepter"></interceptor-ref>
+ 			<result name="success"  type="redirect">/intercepterResult.jsp</result>
+ 			<result name="fail">/testIntercepter.jsp</result>
+ 		</action>
+ 		
+ 		<action name="fileUpload" class="cong.ruan.action.FileUpload">
+ 			<interceptor-ref name="fileUpload">
+ 				<param name="maximumSize">1</param>
+ 			</interceptor-ref>
+ 			<interceptor-ref name="basicStack"></interceptor-ref>
+ 			<result name="success">fileUploadResult.jsp</result>
+ 			<result name="input">fileUpload.jsp</result>
+ 		</action>
+ 		<action name="upload">
+ 			<result>fileUpload.jsp</result>
+ 		</action>
+ 		
+ 		<action name="download" class="cong.ruan.action.DownLoad">
+ 			<result type="stream">
+ 				<param name="inputName">targetFile</param>
+ 				<param name="contentDisposition">attachment;filename=${fileName}</param>
+ 			</result>
+ 		</action>
+ 		
+ 		<action name="validationCode" class="cong.ruan.action.ValidationCode">
+ 			<result type="stream">
+ 				<param name="inputName">codeStream</param>
+ 			</result>
+ 		</action>
+ 		
+ 		<action name="tag_text" class="cong.ruan.action.TagText">
+ 			<result>tagText.jsp</result>
+ 		</action>
+ 		
+ 		<action name="testValidateIntercepter" class="cong.ruan.action.TestValidateIntercepter">
+ 			<interceptor-ref name="validation">
+ 				<param name="excludeMethods">execute</param>
+ 			</interceptor-ref>
+ 		</action>
+ 		<action name="validateByXml" class="cong.ruan.action.ValidateByXml" >
+ 			<result>validateByXml.jsp</result>
+ 		</action>
+ 		<action name="validateByXmlAction" class="cong.ruan.action.ValidateByXmlAction">
+ 			<interceptor-ref name="tokenSession"></interceptor-ref>
+ 			<interceptor-ref name="defaultStack"></interceptor-ref>
+ 			<!--  也可以通过重定向来解决表单重复提交
+ 			<result type="redirectAction">
+ 				<param name="actionName">registerSuccess</param>
+ 				<param name="namespace">/</param>
+ 			</result>
+ 			-->
+ 			<result>registerSuccess.jsp</result>
+ 			<result name="input">/validateByXml.jsp</result>
+ 		</action>
+ 		
+ 		<action name="registerSuccess" >
+ 			<result>/registerSuccess.jsp</result>
+ 		</action>
+ 		 
+ 	
+      
+ 	</package>
+ 	
+ 	<package name="fun2" namespace="/fun2" extends="struts-default" >
+ 		
+ 		<default-action-ref name="index">
+ 		</default-action-ref>
+ 		
+ 		<action name="index">
+ 			<result>fun2Index.jsp</result>
+ 		</action>
+ 		
+ 		
+ 		
+ 	</package>
+ 	
+ </struts>

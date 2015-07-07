@@ -1,0 +1,19 @@
+<!DOCTYPE validators PUBLIC "-//Apache Struts//XWork Validator 1.0.2//EN" "http://struts.apache.org/dtds/xwork-validator-1.0.2.dtd">
+
+<validators>
+	<field name="userInfo.username">
+		<field-validator type="requiredstring">
+			<message>用户名不能为空</message>
+		</field-validator>
+	</field>
+	<field name="userInfo.age">
+		<field-validator type="int">
+			<param name="min">18</param>
+			<param name="max">120</param>
+			<message key="errors.age"></message>
+		</field-validator>
+		<field-validator type="conversion">
+			<message>年龄只能为数字</message>
+		</field-validator>
+	</field>
+</validators>
