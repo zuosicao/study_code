@@ -9,8 +9,10 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.exceptions.IllegalNumber;
 import com.web.beans.Student;
 import com.web.services.interfaces.StudentSerivce;
 
@@ -37,6 +39,26 @@ public class Index {
 		}
 		model.put("pageStus", stuService.getPageStudent(page));
 		System.out.println(sc.getRealPath("/resources"));
+		return "home";
+	}
+	
+	@RequestMapping(value="/home/{page}")
+	public String getOnePageUsers(@PathVariable("page") String pageNum,Map<String, List<Student>> model)
+	{
+		int page = 1;
+		try
+		{
+			page = Integer.parseInt(pageNum);
+			if (page < 1)
+			{
+				page = 1;
+			}
+		}catch(Exception e)
+		{
+			e.printStackTrace();
+			throw new IllegalNumber();
+		}
+		model.put("pageStus", stuService.getPageStudent(page));
 		return "home";
 	}
 

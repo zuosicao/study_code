@@ -1,7 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import="com.web.beans.Student"%>
-
+<%
+String contextPath = getServletContext().getContextPath();
+%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <!DOCTYPE hmtl>
@@ -17,4 +19,5 @@
 		</li>
 	</c:forEach>
 </ul>
-<img alt="什么鬼" src="resources/images/22.jpg" width="100px">
+
+<img alt="什么鬼" src="<%=contextPath%>/resources/images/22.jpg" width="100px">
