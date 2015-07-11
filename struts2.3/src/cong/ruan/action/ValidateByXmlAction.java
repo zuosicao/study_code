@@ -5,6 +5,17 @@ import cong.ruan.beans.RegisterBean;
 public class ValidateByXmlAction extends MySupport
 {
 	private RegisterBean userInfo;
+	private String name;
+	
+	
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
 
 	public RegisterBean getUserInfo()
 	{

@@ -36,6 +36,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
    		<s:text name="ageLable"></s:text><s:textfield name="userInfo.age" maxlength="3"></s:textfield><br/>
    		<s:text name="sexLable"></s:text><s:radio list='#{"M":"男","F":"女"}' name="userInfo.sex" ></s:radio><br/>
    		<s:submit value="注册"></s:submit>
+   		${errors.name[0]}
    </s:form>
   </body>
 </html>
