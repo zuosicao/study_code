@@ -1,12 +1,15 @@
 package com.web.dao.impls;
 
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.PreparedStatementCallback;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
@@ -38,6 +41,22 @@ public class StudentDaoImpl  implements StudentDao {
 						return stu;
 					}
 				});
+	}
+
+	@Override
+	public Student saveStudent(Student stu) {
+		
+		return jdbcTemplate.execute(INSERT_STUDENT, new PreparedStatementCallback<Student>() {
+			@Override
+			public Student doInPreparedStatement(PreparedStatement ps) throws SQLException, DataAccessException {
+				ps.setString(1, stu.getSex());
+				ps.setString(2, stu.getName());
+				ps.setInt(3, stu.getStuNum());
+				ps.setInt(4, stu.getAge());
+				ps.execute();
+				return stu;
+			}
+		});
 	}
 	
 	/*public static void main(String[] args) {

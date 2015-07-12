@@ -20,6 +20,12 @@ public class StudentServiceImpl implements StudentSerivce {
 		return stuDao.getPageStudent(pageNum);
 	}
 
+	@Override
+	public Student addStudent(Student stu) {
+		
+		return stuDao.saveStudent(stu);
+	}
+
 	
 	/*public static void main(String[] args) {
 		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("com/web/configs/services.xml");

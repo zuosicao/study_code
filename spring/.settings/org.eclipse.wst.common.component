@@ -191,6 +191,24 @@
         <dependent-module archiveName="tiles-extras-3.0.5.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/spring/WebContent/WEB-INF/lib/tiles-extras-3.0.5.jar">
             <dependency-type>uses</dependency-type>
         </dependent-module>
+        <dependent-module archiveName="hibernate-validator-4.1.0.Final.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/spring/WebContent/WEB-INF/lib/hibernate-validator-4.1.0.Final.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="slf4j-api-1.7.6.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/spring/WebContent/WEB-INF/lib/slf4j-api-1.7.6.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="validation-api-1.0.0.GA.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/spring/WebContent/WEB-INF/lib/validation-api-1.0.0.GA.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="commons-digester-2.0.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/spring/WebContent/WEB-INF/lib/commons-digester-2.0.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="jcl-over-slf4j-1.7.6.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/spring/WebContent/WEB-INF/lib/jcl-over-slf4j-1.7.6.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="commons-beanutils-1.8.0.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/spring/WebContent/WEB-INF/lib/commons-beanutils-1.8.0.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
         <property name="context-root" value="spring"/>
         <property name="java-output-path" value="/spring/build/classes"/>
     </wb-module>

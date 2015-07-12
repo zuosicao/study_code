@@ -13,5 +13,9 @@
 	<definition name="home" extends="common">
 		<put-attribute name="body" value="/WEB-INF/views/tiles/home.jsp" />
 	</definition>
+	
+	<definition name="register" extends="common">
+		<put-attribute name="body" value="/WEB-INF/views/tiles/register.jsp" />
+	</definition>
 
 </tiles-definitions>

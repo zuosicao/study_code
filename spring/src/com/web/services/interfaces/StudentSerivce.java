@@ -7,4 +7,6 @@ import com.web.beans.Student;
 
 public interface StudentSerivce {
   public List<Student> getPageStudent(int pageNum);
+  
+  public Student addStudent(Student stu);
 }

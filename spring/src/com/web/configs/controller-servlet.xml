@@ -15,7 +15,6 @@
 	<mvc:annotation-driven />
 	
 	<bean id="servletContext" class="com.web.beans.MyServletContext"/>
-	
 
 	<context:component-scan base-package="com.web.controllers" />
 	<!-- <bean class="com.controllers.Index"></bean> -->
@@ -42,4 +41,10 @@
 		</property>
 	</bean>
 	<!-- 解析Tiles视图 -->
+	
+	<!-- 文件上传 -->
+	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+			
+	</bean>
+	<!-- 文件上传 -->
 </beans>
