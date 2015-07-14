@@ -21,9 +21,10 @@ public class Test {
 		
 		SingletonBean sb = context.getBean(SingletonBean.class);
 		System.out.println(sb.getClassInfo());*/
-		//Test test = context.getBean("test",Test.class);
-		//test.fun();
-		//test.funArgs("son of a bitch!!");
+		
+		Test test = context.getBean("test",Test.class);
+		test.fun();
+		test.funArgs("son of a bitch!!");
 		
 		/*AbstractBean abBean = context.getBean("abBean",AbstractBean.class);
 		System.out.println(abBean.fun() == abBean.fun());
@@ -38,9 +39,9 @@ public class Test {
 		
 		//System.out.println(testDao.getAllCurstoms().size());
 		
-		TestHibernateDao hibernateDao = context.getBean("hibernateDao",TestHibernateDao.class);
+		/*TestHibernateDao hibernateDao = context.getBean("hibernateDao",TestHibernateDao.class);
 		Curstom cs = hibernateDao.getCurstomById(1);
-		System.out.println(cs.getName());
+		System.out.println(cs.getName());*/
 	}
 	
 	public void fun()
