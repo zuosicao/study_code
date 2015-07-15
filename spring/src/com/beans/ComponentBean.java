@@ -1,6 +1,7 @@
 package com.beans;
 
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -15,7 +16,8 @@ public class ComponentBean {
 		this.name = name;
 	}
 	
-	@Bean(name="componentBox")
+	@Bean
+	@Scope("prototype")
 	public Box componentBox()
 	{
 		Box rtn = new Box();
