@@ -22,6 +22,7 @@ public class HelloService {
 	public static void main(String[] args) {
 		//格式：wsimport -s "src目录" -p “生成类所在包名” -keep “wsdl发布地址”
 		//wsimport -s D:\development\gitRepositories\study_code\webservice\src -p com.myclient -keep http://localhost:8080/helloService?wsdl
+		//访问的时候要加?wsdl8
 		Endpoint.publish("http://localhost:8090/helloService", new HelloService());
 		System.out.println("启动成功 ！！");
 		

@@ -101,4 +101,22 @@
 
 	<bean id="hibernateDao" class="com.test.TestHibernateDao" />
 
+	<!-- JMS  -->
+	<bean id="connectionFactory" class="org.apache.activemq.spring.ActiveMQConnectionFactory">
+		<property name="brokerURL" value="tcp://localhost:61616"/>
+	</bean>
+	
+	<bean id="queue" class="org.apache.activemq.command.ActiveMQQueue">
+		<constructor-arg value="test.queue"/>
+	</bean>
+	
+	<bean id="jmsTemplate" class="org.springframework.jms.core.JmsTemplate">
+		<property name="connectionFactory" ref="connectionFactory"/>
+	</bean>
+	
+	<bean id="alertService" class="com.services.impls.AlertServiceImpl">
+	
+	</bean>
+	<!-- JMS  -->
+	
 </beans>

@@ -4,6 +4,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import com.beans.Curstom;
+import com.services.interfaces.AlertService;
 
 public class Test {
 	public static void main(String[] args) {
@@ -22,9 +23,9 @@ public class Test {
 		SingletonBean sb = context.getBean(SingletonBean.class);
 		System.out.println(sb.getClassInfo());*/
 		
-		Test test = context.getBean("test",Test.class);
+		/*Test test = context.getBean("test",Test.class);
 		test.fun();
-		test.funArgs("son of a bitch!!");
+		test.funArgs("son of a bitch!!");*/
 		
 		/*AbstractBean abBean = context.getBean("abBean",AbstractBean.class);
 		System.out.println(abBean.fun() == abBean.fun());
@@ -42,6 +43,10 @@ public class Test {
 		/*TestHibernateDao hibernateDao = context.getBean("hibernateDao",TestHibernateDao.class);
 		Curstom cs = hibernateDao.getCurstomById(1);
 		System.out.println(cs.getName());*/
+		
+		AlertService alertService = context.getBean(AlertService.class);
+		//alertService.sendAlertMessage("ruancong");//发送JMS
+		System.out.println(alertService.getAlert());//接收JMS
 	}
 	
 	public void fun()
