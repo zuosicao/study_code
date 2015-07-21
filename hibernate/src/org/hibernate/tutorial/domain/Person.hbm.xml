@@ -20,6 +20,7 @@
         
         <set name="emails" table="person_email_addr">
         	<key column="person_id"></key>
+        
         	<element column="email_addr" type="string"></element>
         </set>
         

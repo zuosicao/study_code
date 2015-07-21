@@ -11,7 +11,7 @@ public class Person {
     private String firstname;
     private String lastname;
     private Set<Event> events = new HashSet<Event>();
-    private Set<String> emails = new HashSet<String>();
+    private Set<String> emails = new HashSet<String>();//可以不初始化
 
     public Set<String> getEmails()
 	{
