@@ -19,7 +19,9 @@ public class TestAnnotationConfig {
 		/*ComponentBean cb = context.getBean(ComponentBean.class);
 		System.out.println(cb.getName());*/
 		
-		Box componentBox = context.getBean(Box.class,"componentBox");
+		Box componentBox = context.getBean(Box.class);
+		Box com2 = context.getBean(Box.class);
+		System.out.println(com2 == componentBox);
 		System.out.println(componentBox.getKind());
 	}
 }

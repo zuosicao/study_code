@@ -11,7 +11,7 @@
   <context-param>
   	<param-name>contextConfigLocation</param-name>
   	<param-value>
-  		classpath:com/web/configs/*.xml
+  		classpath:com/web/configs/*-spring.xml
   	   <!--  classpath:com/web/configs/services.xml -->
   	</param-value>
   </context-param>
@@ -20,7 +20,7 @@
   <filter-name>encodingFilter</filter-name>
   <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
 		<init-param>
-			<param-name>encoding </param-name>
+			<param-name>encoding</param-name>
 			<param-value>UTF-8 </param-value>
 		</init-param>
 		<init-param>
@@ -40,7 +40,7 @@
  	<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
  	<init-param>
  		<param-name>contextConfigLocation</param-name>
- 		<param-value>classpath:com/web/configs/controller-servlet.xml</param-value>
+ 		<param-value>classpath:com/web/configs/controller-servlet-spring.xml</param-value>
  	</init-param>
  
  	<load-on-startup>1</load-on-startup>

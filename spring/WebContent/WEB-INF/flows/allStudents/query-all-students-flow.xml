@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flow xmlns="http://www.springframework.org/schema/webflow"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/webflow
+                      http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd">
+           
+                      
+     <action-state id="query">
+     	<on-entry>
+     		<set name="requestScope.page" value="requestParameters.page"></set>
+     	</on-entry>
+     	<evaluate expression="studentAction.getPageStudent(requestScope.page)" result="flowScope.pageStus"></evaluate>
+     	<transition to="allStudent"></transition>
+     </action-state>
+                      
+   
+     
+     <view-state id="allStudent" model="flowScope.pageStus">
+     	<transition to="end"></transition>
+     </view-state>
+     
+     <end-state id="end"></end-state>
+               
+</flow>

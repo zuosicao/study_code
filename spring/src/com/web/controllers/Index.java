@@ -13,7 +13,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.exceptions.IllegalNumber;
+import com.web.actions.TestAction;
 import com.web.beans.Student;
+import com.web.runnables.TestActionWork;
 import com.web.services.interfaces.StudentSerivce;
 
 @Controller
@@ -23,9 +25,19 @@ public class Index {
 	private StudentSerivce stuService;
 	@Value("#{servletContext.servletContext}")
 	private ServletContext sc;
+	
+	@Autowired
+	private TestAction testAction;
 
 	@RequestMapping(value = { "/home" })
 	public String homePage(HttpServletRequest requset, Map<String, List<Student>> model) {
+		
+		for (int i = 1; i <= 10; i++)
+		{
+			TestActionWork taw = new TestActionWork(testAction,i);
+			new Thread(taw).start();
+		}
+		
 		String pageParm = requset.getParameter("page");
 		int page = 1;
 		try {
