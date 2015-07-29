@@ -13,16 +13,17 @@
         <property name="firstname"/>
         <property name="lastname"/>
         
-        <set name="events" table="person_event">
+        <set name="events" table="person_event" lazy="false" batch-size="4" fetch="subselect">
         	<key column="person_id"/>
         	<many-to-many column="event_id" class="Event"></many-to-many>
         </set>
         
-        <set name="emails" table="person_email_addr">
+        <set name="emails" table="person_email_addr" lazy="false" batch-size="4">
         	<key column="person_id"></key>
         
         	<element column="email_addr" type="string"></element>
         </set>
+        
         
     </class>
 

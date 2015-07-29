@@ -2,6 +2,7 @@ package org.hibernate.tutorial.test;
 
 
 import java.io.Serializable;
+import java.util.List;
 import java.util.Set;
 
 import org.hibernate.Session;
@@ -26,18 +27,30 @@ public class MainTest {
 		 
 		tx.commit();*/
 		
-	/*	Person person = new Person();
+		/*Person person = new Person();
 		person.setAge(23);
-		person.setFirstname("Tom");
-		person.setLastname("Cat");
+		person.setFirstname("Tom3");
+		person.setLastname("Cat3");
 		
 		System.out.println(savePerson(person));*/
 		
 		
-		Set<Event> set = getPersonById(1l).getEvents();
+		/*Set<Event> set = getPersonById(1l).getEvents();
 		for (Event e : set)
 		{
 			System.out.println(e.getTitle());
+		}*/
+		
+		/*List<Person> persons = getAllPersonByName("Tom");
+		for (Person p : persons)
+		{
+			System.out.println(p.getFirstname());
+		}*/
+		
+		List<Person> persons = getAllPerson();
+		for (Person p : persons)
+		{
+			System.out.println(p.getFirstname());
 		}
 	}
 	
@@ -50,7 +63,8 @@ public class MainTest {
 		Transaction tx = session.beginTransaction();
 		Serializable result = session.save(person);
 		tx.commit();
-		
+		if(session.isOpen())
+		session.close();
 		return result;
 	}
 	
@@ -59,6 +73,54 @@ public class MainTest {
 		SessionFactory sFactory = HibernateUtil.getSessionFactory();
 		Session session = sFactory.getCurrentSession();
 		Transaction tx = session.beginTransaction();
-		return (Person)session.get(Person.class, id);
+		Person result = (Person)session.get(Person.class, id);
+		
+		tx.commit();
+		if(session.isOpen())
+		session.close();
+		return result;
 	}
+	
+	@SuppressWarnings("unchecked")
+	public static List<Person> getAllPersonByName(String name)
+	{
+		List<Person> result = null;
+		
+		SessionFactory sFactory = HibernateUtil.getSessionFactory();
+		Session session = sFactory.getCurrentSession();
+		Transaction tx = session.beginTransaction();
+		
+		result = session.createQuery("from Person where firstname = :firstname")
+				.setString("firstname", name).list();
+		
+		tx.commit();
+		//做Query.list()时，并且开启了事物，session会在commit()中就被关闭
+		if (session.isOpen())
+		{
+			session.close();
+		}
+		System.out.println(result.size());
+		return result;
+	}
+	
+	public static List<Person> getAllPerson()
+	{
+		List<Person> result = null;
+		
+		SessionFactory sFactory = HibernateUtil.getSessionFactory();
+		Session session = sFactory.getCurrentSession();
+		Transaction tx = session.beginTransaction();
+		
+		result = session.createQuery("from Person").list();
+		
+		tx.commit();
+		//做Query.list()时，并且开启了事物，session会在commit()中就被关闭
+		if (session.isOpen())
+		{
+			session.close();
+		}
+		System.out.println(result.size());
+		return result;
+	}
+	
 }
