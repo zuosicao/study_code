@@ -30,7 +30,12 @@
 		<!-- Drop and re-create the database schema on startup -->
 		<property name="hbm2ddl.auto">update</property>
 
-		<mapping resource="org/hibernate/tutorial/domain/Event.hbm.xml" />
+		<mapping class="org.hibernate.tutorial.domain.Curstom"/>
+		<mapping class="org.hibernate.tutorial.domain.Order"/>
+		<mapping class="org.hibernate.tutorial.domain.Mg_article_favorite"/>
+		<mapping class="org.hibernate.tutorial.domain.Mg_article"/>
+		<mapping class="org.hibernate.tutorial.domain.Mg_user"/>
+		<mapping  resource="org/hibernate/tutorial/domain/Event.hbm.xml" />
 		<mapping resource="org/hibernate/tutorial/domain/Person.hbm.xml" />
 		<mapping resource="org/hibernate/tutorial/domain/Bed.hbm.xml" />
 		<!-- <mapping resource="cong/ruan/orm/User.hbm.xml"/> -->

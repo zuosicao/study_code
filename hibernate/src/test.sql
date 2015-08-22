@@ -12,7 +12,7 @@ age int,
 firstname varchar(20),
 lastname varchar(20)
 );
-
+select * from  person_email_addr a left join person p  on  p.person_id = a.person_id;
      
 create table events
 (

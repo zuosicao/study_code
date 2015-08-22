@@ -8,7 +8,10 @@ import java.util.Set;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.hibernate.tutorial.dao.BaseDao;
+import org.hibernate.tutorial.domain.Curstom;
 import org.hibernate.tutorial.domain.Event;
+import org.hibernate.tutorial.domain.Mg_article;
 import org.hibernate.tutorial.domain.Person;
 import org.hibernate.tutorial.util.HibernateUtil;
 
@@ -47,12 +50,51 @@ public class MainTest {
 			System.out.println(p.getFirstname());
 		}*/
 		
-		List<Person> persons = getAllPerson();
+	/*	List<Person> persons = getAllPerson();
 		for (Person p : persons)
 		{
 			System.out.println(p.getFirstname());
-		}
+		}*/
+		
+		//deleteCurstom();
+		
+		//initDataSource();
+		deleteArticle();
 	}
+	
+	public static void initDataSource()
+	{
+		SessionFactory sFactory = HibernateUtil.getSessionFactory();
+		Session session = sFactory.getCurrentSession();
+	
+		Transaction tx = session.beginTransaction();
+		tx.commit();
+	}
+	
+	public static void deleteCurstom()
+	{
+		SessionFactory sFactory = HibernateUtil.getSessionFactory();
+		Session session = sFactory.getCurrentSession();
+		
+	
+		Transaction tx = session.beginTransaction();
+		//session.load(Curstom.class, 1);
+		session.delete(session.load(Curstom.class, 1));
+		tx.commit();
+	}
+	
+	public static void deleteArticle()
+	{
+		SessionFactory sFactory = HibernateUtil.getSessionFactory();
+		Session session = sFactory.getCurrentSession();
+		
+	
+		Transaction tx = session.beginTransaction();
+		//session.load(Curstom.class, 1);
+		session.delete(session.load(Mg_article.class, 1));
+		tx.commit();
+	}
+	
 	
 	public static Serializable savePerson(Person person)
 	{
@@ -87,6 +129,7 @@ public class MainTest {
 		List<Person> result = null;
 		
 		SessionFactory sFactory = HibernateUtil.getSessionFactory();
+		//要用getCurrentSession生产的session，就必须有事务环境，意思就是你必须在调用session的方法之前，session.beginTransaction（）；
 		Session session = sFactory.getCurrentSession();
 		Transaction tx = session.beginTransaction();
 		
@@ -95,6 +138,7 @@ public class MainTest {
 		
 		tx.commit();
 		//做Query.list()时，并且开启了事物，session会在commit()中就被关闭
+		
 		if (session.isOpen())
 		{
 			session.close();
@@ -105,7 +149,7 @@ public class MainTest {
 	
 	public static List<Person> getAllPerson()
 	{
-		List<Person> result = null;
+		/*List<Person> result = null;
 		
 		SessionFactory sFactory = HibernateUtil.getSessionFactory();
 		Session session = sFactory.getCurrentSession();
@@ -120,7 +164,10 @@ public class MainTest {
 			session.close();
 		}
 		System.out.println(result.size());
-		return result;
+		return result;*/
+		
+		BaseDao<Person> bd = new BaseDao<Person>();
+		return bd.list("from Person", null);
 	}
 	
 }
