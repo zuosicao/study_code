@@ -8,9 +8,9 @@
 	<name>weixin</name>
 
 	<properties>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-</properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+	</properties>
 
 	<dependencies>
 		<dependency>
@@ -123,6 +123,15 @@
 			<version>1.1.3</version>
 		</dependency>
 
+		<dependency>
+			<groupId>org.eclipse.jetty</groupId>
+			<artifactId>jetty-server</artifactId>
+			<version>9.2.2.v20140723</version>
+			<scope>provided</scope>
+		</dependency>
+
+
+
 	</dependencies>
 
 	<build>
@@ -138,28 +147,22 @@
 				</configuration>
 			</plugin>
 
-			<!-- <plugin>
+			<plugin>
 				<groupId>org.eclipse.jetty</groupId>
 				<artifactId>jetty-maven-plugin</artifactId>
-				<version>9.1.0.M0</version>
+				<version>9.2.2.v20140723</version>
 				<configuration>
 					<httpConnector>
 						<port>80</port>
 					</httpConnector>
+					<jettyXml>jetty.xml,jetty-ssl.xml,jetty-https.xml</jettyXml>
 				</configuration>
-			</plugin> -->
-			 <plugin> 
-            <groupId>org.apache.tomcat.maven</groupId> 
-            <artifactId>tomcat7-maven-plugin</artifactId> 
-            <configuration> 
-                <url>http://localhost:8080/manager/text</url> 
-                <server>tomcat</server> 
-                <username>tomcat</username> 
-                <password>tomcat</password> 
-                <path>/ruancong</path> 
-            </configuration> 
-        </plugin> 
-      </plugins>
-		
+			</plugin>
+			<!-- <plugin> <groupId>org.apache.tomcat.maven</groupId> <artifactId>tomcat7-maven-plugin</artifactId> 
+				<configuration> <url>http://localhost:8080/manager/text</url> <server>tomcat</server> 
+				<username>tomcat</username> <password>tomcat</password> <path>/</path> </configuration> 
+				</plugin> -->
+		</plugins>
+
 	</build>
 </project>
