@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd" version="3.1">
+  <display-name>ruancong</display-name>
+   <servlet>
+    <servlet-name>The</servlet-name>
+    <servlet-class>cong.ruan.test.The</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>TheCoreController</servlet-name>
+    <servlet-class>cong.ruan.servlets.TheCoreController</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>ConcreteHistoryEvent</servlet-name>
+    <servlet-class>cong.ruan.servlets.ConcreteHistoryEvent</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>TestHistory</servlet-name>
+    <servlet-class>cong.ruan.test.TestHistory</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>ColdJoke</servlet-name>
+    <servlet-class>cong.ruan.servlets.ColdJoke</servlet-class>
+  </servlet>
+
+
+
+
+  <servlet-mapping>
+    <servlet-name>The</servlet-name>
+    <url-pattern>/the</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>TheCoreController</servlet-name>
+    <url-pattern>/theCoreController</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>ConcreteHistoryEvent</servlet-name>
+    <url-pattern>/concreteEvent</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>TestHistory</servlet-name>
+    <url-pattern>/testHistory</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>ColdJoke</servlet-name>
+    <url-pattern>/coldJoke</url-pattern>
+  </servlet-mapping>
+  <welcome-file-list>
+    <welcome-file>index.jsp</welcome-file>
+  </welcome-file-list>
+</web-app>
