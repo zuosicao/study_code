@@ -24,7 +24,10 @@ public class TestJsonObject
 		Joke joke = new Joke();
 		joke.setContent("fdfdf");
 		joke.setImgUrl("fdaf");
+		System.out.println(JSONObject.fromObject(joke));
 		
+		Joke j = (Joke)JSONObject.toBean(JSONObject.fromObject(joke),Joke.class);
+		System.out.println(j.getContent() + ">>>>>>>><<<<<<<<<<");
 		JSONObject ob = JSONObject.fromObject("{\"content\":\"fdfdf\",\"imgUrl\":\"fdaf\"}");
 		System.out.println(ob.get("content"));
 	}
