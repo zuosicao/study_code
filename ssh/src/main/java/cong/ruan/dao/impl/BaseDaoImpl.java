@@ -107,7 +107,6 @@ public class BaseDaoImpl<T>{
 		if (args == null || args.length == 0){
 			return;
 		}
-		
 		for (int i = 0; i < args.length; i++){
 			query.setParameter(i, args[i]);
 		}

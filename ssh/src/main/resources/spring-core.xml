@@ -16,7 +16,7 @@
 	<bean id="dataSource"
 		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="username" value="root" />
-		<property name="password" value="1111" />
+		<property name="password" value="ujjava2015" />
 		<property name="url" value="jdbc:mysql://localhost:3306/spring" />
 		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
 	</bean>
@@ -25,7 +25,7 @@
 		class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
 		<property name="dataSource" ref="dataSource" />
 		  <!-- 扫描@Entity -->
-		  <property name="packagesToScan" value="cong.ruan.beans">
+		<property name="packagesToScan" value="cong.ruan.beans">
            
         </property>
 		<property name="hibernateProperties">
@@ -48,7 +48,7 @@
 	
 	<tx:advice id="txAdvice" transaction-manager="transactionManager" >
 		<tx:attributes>
-			<!-- 指定哪些方法需要加入事务，这里懒惰一下全部加入，可以使用通配符来只加入需要的方法 -->
+			<!-- 指定哪些方法需要加入事务，可以使用通配符来只加入需要的方法 -->
 			<tx:method name="save*" propagation="REQUIRED" />
 			<tx:method name="pager*" propagation="REQUIRED" />
 			<tx:method name="query*" propagation="REQUIRED" />
@@ -56,7 +56,7 @@
 	</tx:advice>
 	
 
-	<!-- 配置那些类的方法进行事务管理 -->
+	<!-- 配置哪些类的方法进行事务管理 -->
 	 <aop:config>
 		<aop:pointcut expression="execution(* cong.ruan.dao.impl.*Impl.*(..))"
 			id="allManagerMethod" />

@@ -33,5 +33,32 @@ public class MainTest {
 		s2.setName("sss222");
 		
 		stuDao.saveStudents(new Student[]{s1,s2});
+
+
+		/*new Thread(new Runnable() {
+			
+			@Override
+			public void run() {
+					System.out.println("from 1");
+					
+				stuDao.aaaqueryStudentById(1,1);
+			}
+		}).start();
+		
+		new Thread(new Runnable() {
+			
+			@Override
+			public void run() {
+				try {
+					Thread.sleep(1000);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				System.out.println("from 2");
+				stuDao.aaaqueryStudentById(1,2);
+			}
+		}).start();*/
+		
 	}
 }

@@ -1,17 +1,18 @@
 package cong.ruan.dao.impl;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import javax.annotation.Resource;import org.hibernate.LockMode;
+import javax.annotation.Resource;
+
+import org.hibernate.LockMode;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
-import cong.ruan.beanobj.StudentObj;
 import cong.ruan.beans.Student;
-import cong.ruan.utils.Pager;
 
 @Repository("stuDao")
 public class StudentDaoImpl{
@@ -49,31 +50,58 @@ public class StudentDaoImpl{
 		
 		return sObj;
 	}*/
-	
+	//@Transactional
 	public void saveStudents(Student[] stus){
 		Session session = sessionFactory.getCurrentSession();
-		try{
-		Transaction tx = session.beginTransaction();
+		//Transaction tx = session.beginTransaction();
 		for (int i=0; i < stus.length; i++){
 			if (i == 1){
-				throw new Exception();
+				throw new RuntimeException();//出运行时错误 才会回滚
 			}
 			session.save(stus[i]);
+			//Thread.sleep(7000);  事务 在这个方法执行完之后再提交的
 		}
 		
-		tx.commit();
-		}catch(Exception ex){
-			
-		}finally{
-			if (session.isOpen()){
-				System.out.println("Open>>>>>>>>");
-				//session.close();
-			}
-		}
+		//tx.commit();
 	}
 
 	public SessionFactory getSessionFactory() {
 		return sessionFactory;
+	}
+	
+	public Student aaaqueryStudentById(int id,int threadId){
+		Session session = sessionFactory.openSession();
+		Transaction ts = session.beginTransaction();
+		System.out.println(threadId + "thread have begin Transaction" );
+		Query query = session.createQuery("update Student stu set stu.name = :newName where stu.id = :id");
+		query.setInteger("id", id);
+		query.setString("newName", threadId + "aaaaaaaaathread");
+		System.out.println(threadId);
+		//query.setLockMode("stu", LockMode.READ);
+		query.executeUpdate();
+		if (threadId == 1){
+			try {
+				System.out.println("1sleep....");
+				Thread.sleep(7000);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
+		if (threadId == 2){
+			try {
+				Thread.sleep(10000);
+				List l = session.createQuery("From Student stu where stu.id = 1").list();
+				Student stu = (Student) l.get(0);
+				System.out.println(stu.getName());
+				System.out.println("2sleep....");
+				Thread.sleep(50000);
+
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
+		ts.commit();
+		return null;
 	}
 
 	public void setSessionFactory(SessionFactory sessionFactory) {
