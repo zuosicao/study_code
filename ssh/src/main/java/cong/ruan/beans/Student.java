@@ -17,6 +17,9 @@ public class Student {
 	
 	@Column(name="stu_name")
 	private String name;
+	
+	@Column(name="stu_money")
+	private double money;
 
 	public Integer getId() {
 		return id;
@@ -34,4 +37,11 @@ public class Student {
 		this.name = name;
 	}
 
+	public double getMoney() {
+		return money;
+	}
+
+	public void setMoney(double money) {
+		this.money = money;
+	}
 }

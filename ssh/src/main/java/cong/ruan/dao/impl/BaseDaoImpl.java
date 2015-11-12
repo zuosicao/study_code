@@ -10,20 +10,22 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.stereotype.Repository;
 
+import cong.ruan.dao.BaseDao;
 import cong.ruan.utils.Pager;
 @SuppressWarnings("unchecked")
 @Repository("base")
-public class BaseDaoImpl<T>{
+public class BaseDaoImpl implements BaseDao{
 	
 	@Resource
     private SessionFactory sessionFactory;
 	
-	public T save(T t){
+	public <T extends Object>T save(T t){
 		sessionFactory.getCurrentSession().save(t);
 		return t;
 	}
 	
-	public Pager<T> pagerList(String hql,Object[] args,int page,int pageSize){
+	@Override
+	public <T extends Object>Pager<T> pagerList(String hql,Object[] args,int page,int pageSize){
 		Pager<T> result = new Pager<T>();
 		
 		Session session = sessionFactory.getCurrentSession();
@@ -57,10 +59,12 @@ public class BaseDaoImpl<T>{
 		return result;
 	}
 	
-	public Pager<T> pagerList(String hql,int page,int pageSize){
+	@Override
+	public <T extends Object>Pager<T> pagerList(String hql,int page,int pageSize){
 		return pagerList(hql, null, page, pageSize);
 	}
 	
+	@Override
 	public Pager<Object> pagerListObj(String hql,Object[] args,int page,int pageSize){
 		Pager<Object> result = new Pager<Object>();
 		
@@ -94,6 +98,7 @@ public class BaseDaoImpl<T>{
 		return result;
 	}
 	
+	@Override
 	public Pager<Object> pagerListObj(String hql,int page,int pageSize){
 		return pagerListObj(hql,null, page, pageSize);
 	}
@@ -129,6 +134,28 @@ public class BaseDaoImpl<T>{
 
 	public void setSessionFactory(SessionFactory sessionFactory) {
 		this.sessionFactory = sessionFactory;
+	}
+
+	@Override
+	public <T> void update(T t) {
+		 sessionFactory.getCurrentSession().update(t);
+	}
+
+	@Override
+	public <T> void delete(T t) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public <T> T get(int id, Class<T> clazz) {
+		return (T)sessionFactory.getCurrentSession().get(clazz, id);
+	}
+
+	@Override
+	public <T> List<T> listAll(String hql, Object[] argrs) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 }
