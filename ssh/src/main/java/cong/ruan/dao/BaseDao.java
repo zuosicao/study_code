@@ -75,4 +75,10 @@ public interface BaseDao {
 	 */
 	public <T extends Object>List<T> listAllToEntityBySql(String sql,Object[] args,Class<T> aliasToBeanClazz);
 
+	/**
+	 * 执行sql
+	 * @param sql
+	 * @param args
+	 */
+	public void executeSql(String sql,Object[] args);
 }

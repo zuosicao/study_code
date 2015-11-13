@@ -242,4 +242,11 @@ public class BaseDaoImpl implements BaseDao {
 		return result;
 	}
 
+	@Override
+	public void executeSql(String sql, Object[] args) {
+		Session session = sessionFactory.getCurrentSession();
+		Query query = session.createSQLQuery(sql);
+		query.executeUpdate();
+	}
+
 }
