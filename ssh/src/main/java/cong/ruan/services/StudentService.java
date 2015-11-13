@@ -1,8 +1,10 @@
 package cong.ruan.services;
 
-import org.springframework.transaction.annotation.Isolation;
+import java.util.List;
+
 import org.springframework.transaction.annotation.Transactional;
 
+import cong.ruan.beanobj.StudentObj;
 import cong.ruan.beans.Student;
 
 public interface StudentService {
@@ -24,4 +26,16 @@ public interface StudentService {
 	 * @param money
 	 */
 	public void reduceMoney(Integer stuId,Double money);
+	
+	public StudentObj getOneStudentByName(String name);
+	
+	/**
+	 * 分页得到数据
+	 * @param page
+	 * @param pageSize
+	 * @return
+	 */
+	public StudentObj getPageStudent(Integer page,Integer pageSize);
+	
+	public List<StudentObj> getAllStudents();
 }

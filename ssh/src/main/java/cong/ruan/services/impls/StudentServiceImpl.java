@@ -1,18 +1,27 @@
 package cong.ruan.services.impls;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 
+import cong.ruan.beanobj.StudentObj;
 import cong.ruan.beans.Student;
 import cong.ruan.dao.BaseDao;
 import cong.ruan.services.StudentService;
+import cong.ruan.utils.Constants;
+import cong.ruan.utils.Pager;
 
 @Service
 public class StudentServiceImpl implements StudentService {
 
+	private static String GET_STUDENT_BY_NAME = "select stu_name `name`,stu_id `id` from stu_students where stu_name = ?";
+	private static String GET_STUDENTS_INFO = "select stu_name `name`,stu_id `id` from stu_students";
+	private static String GET_ALL_STUDENTS = "select stu_name `name`,stu_id `id` from stu_students";
+	
 	@Resource
 	private BaseDao baseDao;
 	
@@ -61,6 +70,36 @@ public class StudentServiceImpl implements StudentService {
 				baseDao.update(stu);
 			}
 		}
+	}
+
+	@Override
+	public StudentObj getOneStudentByName(String name) {
+		if (name == null){
+			return null;
+		}
+		
+		return baseDao.getObjectBySql(GET_STUDENT_BY_NAME, new Object[]{name}, StudentObj.class);
+	}
+
+	@Override
+	public StudentObj getPageStudent(Integer page, Integer pageSize) {
+		StudentObj result = new StudentObj();
+		if (page == null || page <=0 ){
+			page = Constants.DEFAULT_PAGE;
+		}
+		if (pageSize == null || pageSize <=0 ){
+			pageSize = Constants.DEFAULT_PAGESIZE;
+		}
+
+		Pager<StudentObj> aPage = baseDao.pagerListObjToEntityBySql(GET_STUDENTS_INFO, null, StudentObj.class, page, pageSize);
+		result.setDatas(aPage.getDatas());
+		result.setTotle(aPage.getTotal());
+		return result;
+	}
+
+	@Override
+	public List<StudentObj> getAllStudents() {
+	  return baseDao.listAllToEntityBySql(GET_ALL_STUDENTS, null, StudentObj.class);
 	}
 
 }
