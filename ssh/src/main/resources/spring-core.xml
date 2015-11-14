@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
-	xmlns:tx="http://www.springframework.org/schema/tx"
-	xmlns:aop="http://www.springframework.org/schema/aop"
-	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:task="http://www.springframework.org/schema/task"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans
         http://www.springframework.org/schema/beans/spring-beans.xsd
         http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
           http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
          http://www.springframework.org/schema/tx  http://www.springframework.org/schema/tx/spring-tx.xsd
+          http://www.springframework.org/schema/task  http://www.springframework.org/schema/task/spring-task.xsd
         http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
 
 	<context:annotation-config />
 	<context:component-scan base-package="cong.ruan">
 	</context:component-scan>
-	 <mvc:annotation-driven />  
+	<mvc:annotation-driven />
 
 	<bean id="dataSource"
 		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
@@ -27,10 +27,10 @@
 	<bean id="sessionFactory"
 		class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
 		<property name="dataSource" ref="dataSource" />
-		  <!-- 扫描@Entity -->
+		<!-- 扫描@Entity -->
 		<property name="packagesToScan" value="cong.ruan.beans">
-           
-        </property>
+
+		</property>
 		<property name="hibernateProperties">
 			<props>
 				<prop key="hibernate.dialect">org.hibernate.dialect.MySQL5Dialect</prop>
@@ -40,16 +40,16 @@
 			</props>
 		</property>
 	</bean>
-	
+
 	<!-- The transaction manager -->
 	<bean id="transactionManager"
 		class="org.springframework.orm.hibernate4.HibernateTransactionManager">
 		<property name="sessionFactory" ref="sessionFactory" />
 	</bean>
-	<tx:annotation-driven /><!--  注解式事务 或者用下面xml配置的方式-->
+	<tx:annotation-driven /><!-- 注解式事务 或者用下面xml配置的方式 -->
 	<!-- The transaction manager -->
-	
-	<tx:advice id="txAdvice" transaction-manager="transactionManager" >
+
+	<tx:advice id="txAdvice" transaction-manager="transactionManager">
 		<tx:attributes>
 			<!-- 指定哪些方法需要加入事务，可以使用通配符来只加入需要的方法 -->
 			<tx:method name="save*" propagation="REQUIRED" />
@@ -60,14 +60,40 @@
 			<tx:method name="list*" propagation="REQUIRED" />
 		</tx:attributes>
 	</tx:advice>
-	
+
 
 	<!-- 配置哪些类的方法进行事务管理 -->
-	 <aop:config>
+	<aop:config>
 		<aop:pointcut expression="execution(* cong.ruan.dao.impl.*Impl.*(..))"
 			id="allManagerMethod" />
 		<aop:advisor advice-ref="txAdvice" pointcut-ref="allManagerMethod" />
 	</aop:config>
-	
-	
+
+	<!-- 定时任务 -->
+	<!-- <task:scheduled-tasks> <task:scheduled ref="testTask" method="testJob" 
+		cron="1 * * * * ?" /> </task:scheduled-tasks> -->
+
+	<!-- 注解方法的定时任务 -->
+	<!-- <task:annotation-driven scheduler="qbScheduler"
+		mode="proxy" />
+	<task:scheduler id="qbScheduler" pool-size="10" /> -->
+
+	<!--QuartzTask config -->
+	<bean name="exampleJob1"
+		class="org.springframework.scheduling.quartz.JobDetailFactoryBean">
+		<property name="jobClass" value="cong.ruan.tasks.QuartzTask" />
+	</bean>
+	<bean id="cronTrigger"
+		class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+		<property name="jobDetail" ref="exampleJob1" />
+		<property name="cronExpression" value="0/5 * * * * ?" />
+	</bean>
+	<bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+		<property name="triggers">
+			<list>
+				<ref bean="cronTrigger" />
+			</list>
+		</property>
+	</bean>
+
 </beans>
