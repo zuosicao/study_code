@@ -15,6 +15,16 @@
 	<context:component-scan base-package="cong.ruan">
 	</context:component-scan>
 	<mvc:annotation-driven />
+	
+	<!-- 解析jsp视图  start-->
+	<bean
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="viewClass"
+			value="org.springframework.web.servlet.view.JstlView" />
+		<property name="prefix" value="/WEB-INF/views/" />
+		<property name="suffix" value=".jsp" />
+	</bean>
+	<!-- 解析jsp视图 end-->
 
 	<bean id="dataSource"
 		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
@@ -86,7 +96,7 @@
 	<bean id="cronTrigger"
 		class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
 		<property name="jobDetail" ref="exampleJob1" />
-		<property name="cronExpression" value="0/5 * * * * ?" />
+		<property name="cronExpression" value="0 0/10 * * * ?" />
 	</bean>
 	<bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
 		<property name="triggers">

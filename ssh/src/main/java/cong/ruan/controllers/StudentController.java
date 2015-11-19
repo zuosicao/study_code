@@ -16,6 +16,7 @@ import cong.ruan.beanobj.StudentObj;
 import cong.ruan.services.StudentService;
 
 @Controller
+/*@RequestMapping("/aaa")*/
 public class StudentController {
 
 	@Resource
@@ -65,5 +66,9 @@ public class StudentController {
 		}
 	}
 	
+	@RequestMapping("home")
+	public String home(){
+		return "home";
+	}
 
 }
