@@ -1,8 +1,12 @@
 package cong.ruan.controllers;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -35,6 +39,31 @@ public class StudentController {
 		return stuObjs;
 	}
 	
+	@RequestMapping("testEntity")
+	public void testPostEntity(HttpServletRequest request){
+		try {
+			BufferedReader  rd = request.getReader();
+			String line = rd.readLine();
+			while (line != null){
+				System.out.println(line);
+				line = rd.readLine();
+			}
+			
+			InputStream is = request.getInputStream();
+			String tt = request.getParameter("tt");
+			System.out.println(tt);
+			byte[] temp = new byte[1024] ;
+			int length = -1;
+			StringBuffer sb = new StringBuffer();
+			while ((length = is.read(temp)) != -1){
+				sb.append(new String(temp,0,length));
+			}
+			String str = sb.toString();
+			System.out.println(str + ">》");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 	
 
 }

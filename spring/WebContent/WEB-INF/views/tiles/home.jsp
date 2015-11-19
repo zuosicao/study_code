@@ -15,7 +15,7 @@ String contextPath = getServletContext().getContextPath();
 
 	<c:forEach items="${pageStus}" var="stu">
 		<li>
-			姓名：${stu.name}&nbsp;年龄：${stu.age}
+			姓名：${stu.name}&nbsp;年龄：${stu.age} ${test}::
 		</li>
 	</c:forEach>
 </ul>

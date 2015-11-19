@@ -30,13 +30,13 @@ public class Index {
 	private TestAction testAction;
 
 	@RequestMapping(value = { "/home" })
-	public String homePage(HttpServletRequest requset, Map<String, List<Student>> model) {
+	public String homePage(HttpServletRequest requset, Map<String,Object> map) {
 		
-		for (int i = 1; i <= 10; i++)
+		/*for (int i = 1; i <= 10; i++)
 		{
 			TestActionWork taw = new TestActionWork(testAction,i);
 			new Thread(taw).start();
-		}
+		}*/
 		
 		String pageParm = requset.getParameter("page");
 		int page = 1;
@@ -49,7 +49,8 @@ public class Index {
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
-		model.put("pageStus", stuService.getPageStudent(page));
+		map.put("pageStus", stuService.getPageStudent(page));
+		map.put("test","test22");
 		System.out.println(sc.getRealPath("/resources"));
 		return "home";
 	}

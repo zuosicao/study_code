@@ -3,7 +3,7 @@
   <display-name>SSH</display-name>
   
   
-  <listener>
+  <!-- <listener>  与下面的 DispatcherServlet 配置文件不能重复
   	<listener-class>
   		org.springframework.web.context.ContextLoaderListener
   	</listener-class>
@@ -15,7 +15,7 @@
   		classpath:spring-*.xml
   	</param-value>
   </context-param>
-  
+   -->
   
   <!--  <filter>
         <filter-name>struts2</filter-name>
