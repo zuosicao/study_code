@@ -63,7 +63,7 @@ public class BaseDaoImpl implements BaseDao {
 	}
 
 	@Override
-	public <T extends Object> Pager<T> pagerListHql(String hql, int page, int pageSize) {
+	public <T extends Object> Pager<T> pagerListByHql(String hql, int page, int pageSize) {
 		return pagerListByHql(hql, null, page, pageSize);
 	}
 
@@ -247,6 +247,46 @@ public class BaseDaoImpl implements BaseDao {
 		Session session = sessionFactory.getCurrentSession();
 		Query query = session.createSQLQuery(sql);
 		query.executeUpdate();
+	}
+
+	@Override
+	public <T> Pager<T> pagerListObjToEntityByHql(String hql, Object[] args, Class<T> aliasToBeanClazz, int page,
+			int pageSize) {
+		Pager<T> result = new Pager<T>();
+
+		Session session = sessionFactory.getCurrentSession();
+
+		String countHql = generateCountHQL(hql);
+		Query countQuery = session.createQuery(countHql);
+		setQueryParms(countQuery, args);
+		Long longCount = (Long) countQuery.uniqueResult();
+		int count = longCount.intValue();
+
+		if (count > 0) {
+
+			Query query = session.createQuery(hql);
+			// TODO page < 1 hql的参数与object数组大小不符合
+			int setoff = (page - 1) * pageSize;
+			int maxResults = pageSize;
+			setQueryParms(query, args);
+
+			if (aliasToBeanClazz != null) {
+				query.setResultTransformer(Transformers.aliasToBean(aliasToBeanClazz));
+			}
+
+			List<T> datas = query.setFirstResult(setoff).setMaxResults(maxResults).list();
+
+			result.setDatas(datas);
+			result.setCurrentPage(page);
+			result.setPageSize(pageSize);
+			int total = count;
+			result.setTotal(total);
+		} else {
+			result.setTotal(0);
+			result.setCurrentPage(page);
+			result.setDatas(new ArrayList<T>());
+		}
+		return result;
 	}
 
 }

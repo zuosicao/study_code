@@ -39,6 +39,7 @@ public class Pager<T> {
 	public int getTotalPages() {
 		return totalPages;
 	}
+	
 	public int getTotal() {
 		return total;
 	}

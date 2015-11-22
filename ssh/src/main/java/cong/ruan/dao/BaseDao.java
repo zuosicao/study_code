@@ -39,7 +39,9 @@ public interface BaseDao {
 	
 	public <T extends Object>Pager<T> pagerListByHql(String hql,Object[] args,int page,int pageSize);
 
-	public <T extends Object>Pager<T> pagerListHql(String hql,int page,int pageSize);
+	public <T extends Object>Pager<T> pagerListByHql(String hql,int page,int pageSize);
+	
+	public <T extends Object>Pager<T> pagerListObjToEntityByHql(String sql,Object[] args,Class<T> aliasToBeanClazz,int page,int pageSize);
 
 	public Pager<Object> pagerListObjByHql(String hql,int page,int pageSize);
 	

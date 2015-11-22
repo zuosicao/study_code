@@ -58,6 +58,14 @@
 	</bean>
 	<tx:annotation-driven /><!-- 注解式事务 或者用下面xml配置的方式 -->
 	<!-- The transaction manager -->
+	
+	 <bean id="contextSourceTarget" class="org.springframework.ldap.core.support.LdapContextSource">
+	    <property name="base" value="DC=GTJA,DC=NET" />
+	    <!-- 正式地址 -->
+	    <property name="url" value="ldap://10.181.101.207:389" />
+	    <property name="userDn" value="cn=gtjaldap,cn=ibmpolicies" />
+	    <property name="password" value="g1t2j3a4" />
+	</bean>
 
 	<tx:advice id="txAdvice" transaction-manager="transactionManager">
 		<tx:attributes>

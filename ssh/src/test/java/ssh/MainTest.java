@@ -1,17 +1,17 @@
 package ssh;
 
-import org.springframework.context.support.ClassPathXmlApplicationContext;
+import java.lang.reflect.Method;
 
-import cong.ruan.beans.Student;
-import cong.ruan.dao.impl.StudentDaoImpl;
-import cong.ruan.services.StudentService;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.ldap.core.support.AbstractContextSource;
+import org.springframework.ldap.core.support.LdapContextSource;
 
 public class MainTest {
 	public static void main(String[] args) throws Exception {
 		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("spring-core.xml");
 		
-		StudentDaoImpl stuDao = context.getBean(StudentDaoImpl.class,"stuDao");
-		StudentService stuService = context.getBean(StudentService.class);
+		/*StudentDaoImpl stuDao = context.getBean(StudentDaoImpl.class,"stuDao");
+		StudentService stuService = context.getBean(StudentService.class);*/
 		/*Student stu = new Student();
 		stu.setName("fuckkkkk");
 		stu.setId(null);
@@ -80,7 +80,7 @@ public class MainTest {
 		
 		stuService.saveAllStudentsOrNone(new Student[]{s1,s2,s3});*/
 		
-		new Thread(new Runnable() {
+		/*new Thread(new Runnable() {
 			
 			@Override
 			public void run() {
@@ -94,6 +94,24 @@ public class MainTest {
 				stuService.reduceMoney(29,7.0);
 			}
 		}).start();
+		*/
 		
+		LdapContextSource contextSourceTarget = context.getBean(LdapContextSource.class);
+		System.out.println(contextSourceTarget.getPassword());
+		System.out.println(contextSourceTarget.getUrls()[0]);
+		System.out.println(contextSourceTarget.getBaseLdapPathAsString());
+		System.out.println(contextSourceTarget.getBaseLdapName());
+		//System.out.println(contextSourceTarget.get);
+		//System.out.println(contextSourceTarget.get);
+		Class clazz = contextSourceTarget.getClass().getSuperclass();
+		System.out.println(clazz.getName());
+		System.out.println(clazz.getField("password"));
+		/*Method[] ms = clazz.getMethods();
+		for (Method m : ms){
+			System.out.println(m.getName());
+		}
+		System.out.println(clazz.getField("password"));
+		Method m = clazz.getMethod("getBase", null);
+		System.out.println(m.invoke(contextSourceTarget, null));*/
 	}
 }

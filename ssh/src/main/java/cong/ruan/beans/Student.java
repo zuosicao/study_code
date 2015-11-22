@@ -23,6 +23,9 @@ public class Student {
 	
 	@Column(name="stu_money")
 	private double money;
+	
+	@Column(nullable=false,unique=true)
+	private String unCode;
 
 	public Integer getId() {
 		return id;
@@ -46,5 +49,13 @@ public class Student {
 
 	public void setMoney(double money) {
 		this.money = money;
+	}
+
+	public String getUnCode() {
+		return unCode;
+	}
+
+	public void setUnCode(String unCode) {
+		this.unCode = unCode;
 	}
 }

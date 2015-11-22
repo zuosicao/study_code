@@ -22,6 +22,8 @@ public class StudentServiceImpl implements StudentService {
 	private static String GET_STUDENTS_INFO = "select stu_name `name`,stu_id `id` from stu_students";
 	private static String GET_ALL_STUDENTS = "select stu_name `name`,stu_id `id` from stu_students";
 	
+	private static String GET_STUDENTS_INFO_HQL = "select stu.id as id,stu.name as name from Student stu";
+	
 	@Resource
 	private BaseDao baseDao;
 	
@@ -91,7 +93,9 @@ public class StudentServiceImpl implements StudentService {
 			pageSize = Constants.DEFAULT_PAGESIZE;
 		}
 
-		Pager<StudentObj> aPage = baseDao.pagerListObjToEntityBySql(GET_STUDENTS_INFO, null, StudentObj.class, page, pageSize);
+		//Pager<StudentObj> aPage = baseDao.pagerListObjToEntityBySql(GET_STUDENTS_INFO, null, StudentObj.class, page, pageSize);
+		Pager<StudentObj> aPage = baseDao.pagerListObjToEntityByHql(GET_STUDENTS_INFO_HQL, null, StudentObj.class, page, pageSize);
+
 		result.setDatas(aPage.getDatas());
 		result.setTotle(aPage.getTotal());
 		return result;
