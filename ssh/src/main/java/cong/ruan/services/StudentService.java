@@ -6,6 +6,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import cong.ruan.beanobj.StudentObj;
 import cong.ruan.beans.Student;
+import cong.ruan.utils.Pager;
 
 public interface StudentService {
 
@@ -38,4 +39,6 @@ public interface StudentService {
 	public StudentObj getPageStudent(Integer page,Integer pageSize);
 	
 	public List<StudentObj> getAllStudents();
+	
+	public Pager<StudentObj> pagerStudent(Integer page, Integer pageSize);
 }

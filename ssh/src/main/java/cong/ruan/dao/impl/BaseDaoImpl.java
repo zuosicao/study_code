@@ -240,8 +240,10 @@ public class BaseDaoImpl implements BaseDao {
 		int count = bigCount.intValue();
 
 		if (count > 0) {
-			if (page <= 0 || pageSize <=0){
+			if (page <= 0){
 				page = Constants.DEFAULT_PAGE;
+			}
+			if (pageSize <=0){
 				pageSize = Constants.DEFAULT_PAGESIZE;
 			}
 			
@@ -310,9 +312,16 @@ public class BaseDaoImpl implements BaseDao {
 		setQueryParms(countQuery, args);
 		Long longCount = (Long) countQuery.uniqueResult();
 		int count = longCount.intValue();
-
+		
 		if (count > 0) {
 
+			if (page <= 0){
+				page = Constants.DEFAULT_PAGE;
+			}
+			if (pageSize <=0){
+				pageSize = Constants.DEFAULT_PAGESIZE;
+			}
+			
 			Query query = session.createQuery(hql);
 			int setoff = (page - 1) * pageSize;
 			int maxResults = pageSize;

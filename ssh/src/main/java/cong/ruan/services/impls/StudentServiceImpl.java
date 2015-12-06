@@ -86,12 +86,6 @@ public class StudentServiceImpl implements StudentService {
 	@Override
 	public StudentObj getPageStudent(Integer page, Integer pageSize) {
 		StudentObj result = new StudentObj();
-		if (page == null || page <=0 ){
-			page = Constants.DEFAULT_PAGE;
-		}
-		if (pageSize == null || pageSize <=0 ){
-			pageSize = Constants.DEFAULT_PAGESIZE;
-		}
 
 		//Pager<StudentObj> aPage = baseDao.pagerListObjToEntityBySql(GET_STUDENTS_INFO, null, StudentObj.class, page, pageSize);
 		Pager<StudentObj> aPage = baseDao.pagerListObjToEntityByHql(GET_STUDENTS_INFO_HQL, null, StudentObj.class, page, pageSize);
@@ -104,6 +98,11 @@ public class StudentServiceImpl implements StudentService {
 	@Override
 	public List<StudentObj> getAllStudents() {
 	  return baseDao.listAllToEntityBySql(GET_ALL_STUDENTS, null, StudentObj.class);
+	}
+
+	@Override
+	public Pager<StudentObj> pagerStudent(Integer page, Integer pageSize) {
+		return baseDao.pagerListObjToEntityByHql(GET_STUDENTS_INFO_HQL, null, StudentObj.class, page, pageSize);
 	}
 
 }

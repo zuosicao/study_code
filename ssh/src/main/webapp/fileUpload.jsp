@@ -72,7 +72,20 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
       		  // elStyle:{background:'red'},
       		   //srcNode:"#abutton",
       		   text:'什么鬼2',
-      	   }});
+      	   },
+      	   
+           rules: {
+               //文的类型
+               ext: ['.png,.jpg','文件类型只能为{0}'],
+               //上传的最大个数
+               max: [5, '文件的最大个数不能超过{0}个'],
+               //文件大小的最小值,这个单位是kb
+               minSize: [10, '文件的大小不能小于{0}KB'],
+               //文件大小的最大值,单位也是kb
+               maxSize: [1024, '文件大小不能大于1M']
+             }
+          
+      });
 	
     uploader.render();
     
