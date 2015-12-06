@@ -17,7 +17,7 @@ public class AlertServiceImpl implements AlertService {
 	private JmsTemplate jmsTemplate;
 	
 	@Override
-	public void sendAlertMessage(String message) {
+	public void sendAlertMessage(final String message) {
 		// TODO Auto-generated method stub
 		jmsTemplate.send("test.queue", new MessageCreator() {
 			

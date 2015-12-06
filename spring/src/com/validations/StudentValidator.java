@@ -21,10 +21,14 @@ public class StudentValidator implements Validator {
 	public void validate(Object obj, Errors error) {
 		Student stu = (Student)obj;
 
-		if (stu.getAge() == 88)
+		if (stu.getAge() >= 88)
 		{
-			System.out.println("88888888888888888");
-			error.reject("age","invalidateAge");
+			//error.reject("age2","invalidateAge");
+			error.rejectValue("age","age.old","年龄太大了");
+			System.out.println("年龄太大了>>>>>>>");
+		}
+		if (stu.getStu().getName().equals("123")){
+			error.rejectValue("stu.name","","里面的姓名不能为123");
 		}
 	}
 

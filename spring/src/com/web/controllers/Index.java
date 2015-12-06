@@ -47,7 +47,7 @@ public class Index {
 				page = 1;
 			}
 		} catch (Exception ex) {
-			ex.printStackTrace();
+			//ex.printStackTrace();
 		}
 		map.put("pageStus", stuService.getPageStudent(page));
 		map.put("test","test22");

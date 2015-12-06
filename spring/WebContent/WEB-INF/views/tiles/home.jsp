@@ -19,5 +19,4 @@ String contextPath = getServletContext().getContextPath();
 		</li>
 	</c:forEach>
 </ul>
-
 <img alt="什么鬼" src="<%=contextPath%>/resources/images/22.jpg" width="100px">

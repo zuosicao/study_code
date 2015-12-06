@@ -44,7 +44,7 @@ public class StudentDaoImpl  implements StudentDao {
 	}
 
 	@Override
-	public Student saveStudent(Student stu) {
+	public Student saveStudent(final Student stu) {
 		
 		return jdbcTemplate.execute(INSERT_STUDENT, new PreparedStatementCallback<Student>() {
 			@Override

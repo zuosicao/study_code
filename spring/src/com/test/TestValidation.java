@@ -9,6 +9,7 @@ import com.validations.PersonValidation;
 public class TestValidation {
 	public static void main(String[] args) {
 		Person p = new Person();
+		p.setName("dd");
 		p.setAge(-2);
 		PersonValidation pv = new PersonValidation();
 

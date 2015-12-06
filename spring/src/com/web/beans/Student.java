@@ -18,6 +18,8 @@ public class Student implements Serializable {
 	
 	private int stuNum;
 	
+	private Student stu;
+	
 	//@NotNull
 	//@Size(min=3,max=20,message="用户名不能为空")
 	private String name;
@@ -60,6 +62,14 @@ public class Student implements Serializable {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public Student getStu() {
+		return stu;
+	}
+
+	public void setStu(Student stu) {
+		this.stu = stu;
 	}
 
 }

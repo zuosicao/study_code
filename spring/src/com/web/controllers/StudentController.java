@@ -1,6 +1,7 @@
 package com.web.controllers;
 
 import java.io.IOException;
+import java.util.Map;
 
 import javax.validation.Valid;
 
@@ -8,13 +9,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.services.interfaces.MyService;
 import com.utils.FileUtil;
+import com.validations.StudentValidator;
 import com.web.beans.MyServletContext;
 import com.web.beans.Student;
 import com.web.services.interfaces.StudentSerivce;
@@ -23,10 +27,11 @@ import com.web.services.interfaces.StudentSerivce;
 @RequestMapping(value="/student")
 public class StudentController {
 	
-	/*@InitBinder  //可以通过这种方式来验证输入  
+	@InitBinder  //可以通过这种方式来验证输入  
 	protected void initBinder(WebDataBinder webBinder){
+		System.out.println(">>>init binder");
 		webBinder.setValidator(new StudentValidator());
-	}*/
+	}
 	
 	@Autowired
 	private StudentSerivce stuService;
@@ -43,20 +48,22 @@ public class StudentController {
 	}
 	
 	@RequestMapping(method=RequestMethod.POST)
-	public String handleRegister(@Valid Student stu,BindingResult br,
+	public String handleRegister(@Valid Student stu,BindingResult br, Map<String,Object> errors,
 								@RequestParam(value="image",required=true)MultipartFile file)
 	{
-		
-		
+		System.out.println(stu.getStu().getName());
 		if (br.hasErrors())
 		{
 			System.out.println(br.hasErrors());
+			//System.out.println(br.getGlobalError().getDefaultMessage());
 			System.out.println(br.getFieldErrors().size());
 			return "register";
 		}
 		
 		if (!validateImage(file))
 		{
+			String error2 = "文件不能为空";
+			errors.put("fileError", error2);
 			return "register";
 		}
 		
