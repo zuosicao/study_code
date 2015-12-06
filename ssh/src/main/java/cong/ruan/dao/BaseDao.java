@@ -1,15 +1,10 @@
 package cong.ruan.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import cong.ruan.utils.Pager;
 
-/**
- * 
- * @author RuanCong
- * 2015年11月12日 下午1:39:10
- *
- */
 public interface BaseDao {
 	
 	public <T extends Object>T save(T t);
@@ -17,6 +12,9 @@ public interface BaseDao {
 	public <T extends Object>void update(T t);
 	
 	public <T extends Object>void delete(T t);
+	public <T extends Object>T deleteById(int id,Class<T> clazz);
+	
+	public <T extends Object>T load(int id,Class<T> clazz);
 	
 	/**
 	 * 得到实体类 否则返回null
@@ -27,6 +25,14 @@ public interface BaseDao {
 	public <T extends Object>T get(int id,Class<T> clazz);
 	
 	/**
+	 * 得到实体类 否则返回null
+	 * @param hql
+	 * @param agrs hql中的参数
+	 * @return
+	 */
+	public <T extends Object>T getObjectByHql(String hql,Object[] agrs);
+	
+	/**
 	 * 用sql语句查询一条数据，将查询结果映射到aliasToBeanClazz
 	 * @param sql  sql中字段的别名与aliasToBeanClazz类中的属性名一样
 	 * @param args  sql中的参数
@@ -35,7 +41,30 @@ public interface BaseDao {
 	 */
 	public <T extends Object>T getObjectBySql(String sql,Object[] args,Class<T> aliasToBeanClazz);
 	
+	/**
+	 * 根据hql语句得到所有的记录
+	 * @param hql
+	 * @param argrs hql中的参数
+	 * @return
+	 */
 	public <T extends Object>List<T> listAllByHql(String hql,Object[] argrs);
+	
+	/**
+	 * 根据hql语句得到所有的记录
+	 * @param hql
+	 * @return
+	 */
+	public <T extends Object>List<T> listAllByHql(String hql);
+
+	/**
+	 * 
+	 * @param hql
+	 * @param params 
+	 * @param page
+	 * @param pageSize
+	 * @return
+	 */
+	public <T extends Object>Pager<T> pagerListWithParamsByHql(String hql,Map<String,Object> params,int page,int pageSize);
 	
 	public <T extends Object>Pager<T> pagerListByHql(String hql,Object[] args,int page,int pageSize);
 

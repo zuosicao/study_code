@@ -2,7 +2,10 @@ package cong.ruan.dao.impl;
 
 import java.math.BigInteger;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import javax.annotation.Resource;
 
@@ -13,6 +16,7 @@ import org.hibernate.transform.Transformers;
 import org.springframework.stereotype.Repository;
 
 import cong.ruan.dao.BaseDao;
+import cong.ruan.utils.Constants;
 import cong.ruan.utils.Pager;
 
 @SuppressWarnings("unchecked")
@@ -36,13 +40,17 @@ public class BaseDaoImpl implements BaseDao {
 		String countHql = generateCountHQL(hql);
 		Query countQuery = session.createQuery(countHql);
 		setQueryParms(countQuery, args);
-		BigInteger bigCount = (BigInteger) countQuery.uniqueResult();
-		int count = bigCount.intValue();
+		Long longCount = (Long) countQuery.uniqueResult();
+		int count = longCount.intValue();
 
 		if (count > 0) {
-
+			if (page <= 0){
+				page = Constants.DEFAULT_PAGE;
+			}
+			if (pageSize <=0){
+				pageSize = Constants.DEFAULT_PAGESIZE;
+			}
 			Query query = session.createQuery(hql);
-			// TODO page < 1 hql的参数与object数组大小不符合
 			int setoff = (page - 1) * pageSize;
 			int maxResults = pageSize;
 			setQueryParms(query, args);
@@ -81,8 +89,13 @@ public class BaseDaoImpl implements BaseDao {
 
 		if (count > 0) {
 
+			if (page <= 0){
+				page = Constants.DEFAULT_PAGE;
+			}
+			if (pageSize <=0){
+				pageSize = Constants.DEFAULT_PAGESIZE;
+			}
 			Query query = session.createQuery(hql);
-			// TODO page < 1 hql的参数与object数组大小不符合
 			int setoff = (page - 1) * pageSize;
 			int maxResults = pageSize;
 			setQueryParms(query, args);
@@ -121,6 +134,26 @@ public class BaseDaoImpl implements BaseDao {
 			query.setParameter(i, args[i]);
 		}
 	}
+	
+	/**
+	 * 
+	 * @param query
+	 * @param alias  from Table t where t.id = :id 
+	 */
+	private void setAliasParameter(Query query, Map<String, Object> alias) {
+		if (alias != null) {
+			Set<String> keys = alias.keySet();
+			for (String key : keys) {
+				Object val = alias.get(key);
+				if (val instanceof Collection) {
+					// 查询条件是列表
+					query.setParameterList(key, (Collection<Object>) val);
+				} else {
+					query.setParameter(key, val);
+				}
+			}
+		}
+	}
 
 	/**
 	 * 根据hql语句生成查询总数量的sql语句
@@ -128,9 +161,8 @@ public class BaseDaoImpl implements BaseDao {
 	 * @return
 	 */
 	private String generateCountHQL(String hql) {
-		int index = hql.indexOf("from");
+		int index = hql.indexOf("from ");
 		String countSQL = "select count(*) " + hql.substring(index);
-		System.out.println("From BaseDao.java" + countSQL);
 		return countSQL;
 	}
 
@@ -149,8 +181,16 @@ public class BaseDaoImpl implements BaseDao {
 
 	@Override
 	public <T> void delete(T t) {
-		// TODO Auto-generated method stub
-
+		Session session = sessionFactory.getCurrentSession();
+		session.delete(t);
+	}
+	@Override
+	public <T> T deleteById(int id,Class<T> clazz) {
+		T t = get(id, clazz);
+		if (t != null){
+			delete(t);
+		}
+		return t;
 	}
 
 	@Override
@@ -160,8 +200,14 @@ public class BaseDaoImpl implements BaseDao {
 
 	@Override
 	public <T> List<T> listAllByHql(String hql, Object[] argrs) {
-		// TODO Auto-generated method stub
-		return null;
+		Session session = sessionFactory.getCurrentSession();
+		Query query = session.createQuery(hql);
+		setQueryParms(query,argrs);
+		return query.list();
+	}
+	@Override
+	public <T> List<T> listAllByHql(String hql) {
+		return listAllByHql(hql,null);
 	}
 
 	@Override
@@ -194,9 +240,12 @@ public class BaseDaoImpl implements BaseDao {
 		int count = bigCount.intValue();
 
 		if (count > 0) {
-
+			if (page <= 0 || pageSize <=0){
+				page = Constants.DEFAULT_PAGE;
+				pageSize = Constants.DEFAULT_PAGESIZE;
+			}
+			
 			Query query = session.createSQLQuery(sql);
-			// TODO page < 1 hql的参数与object数组大小不符合
 			int setoff = (page - 1) * pageSize;
 			int maxResults = pageSize;
 			setQueryParms(query, args);
@@ -265,7 +314,6 @@ public class BaseDaoImpl implements BaseDao {
 		if (count > 0) {
 
 			Query query = session.createQuery(hql);
-			// TODO page < 1 hql的参数与object数组大小不符合
 			int setoff = (page - 1) * pageSize;
 			int maxResults = pageSize;
 			setQueryParms(query, args);
@@ -287,6 +335,64 @@ public class BaseDaoImpl implements BaseDao {
 			result.setDatas(new ArrayList<T>());
 		}
 		return result;
+	}
+
+	@Override
+	public <T> T getObjectByHql(String hql, Object[] args) {
+		Session session = sessionFactory.getCurrentSession();
+		Query query = session.createQuery(hql);
+		setQueryParms(query, args);
+		query.setMaxResults(0);
+		List<T> result = query.list();
+		if (result.size() > 0) {
+			return result.get(0);
+		}
+		return null;
+	}
+
+	@Override
+	public <T> Pager<T> pagerListWithParamsByHql(String hql,
+			Map<String, Object> params, int page, int pageSize) {
+		Pager<T> result = new Pager<T>();
+
+		Session session = sessionFactory.getCurrentSession();
+
+		String countHql = generateCountHQL(hql);
+		Query countQuery = session.createQuery(countHql);
+		setAliasParameter(countQuery, params);
+		Long longCount = (Long) countQuery.uniqueResult();
+		int count = longCount.intValue();
+
+		if (count > 0) {
+			if (page <= 0){
+				page = Constants.DEFAULT_PAGE;
+			}
+			if (pageSize <=0){
+				pageSize = Constants.DEFAULT_PAGESIZE;
+			}
+			Query query = session.createQuery(hql);
+			int setoff = (page - 1) * pageSize;
+			int maxResults = pageSize;
+			setAliasParameter(query,params);
+
+			List<T> datas = query.setFirstResult(setoff).setMaxResults(maxResults).list();
+
+			result.setDatas(datas);
+			result.setCurrentPage(page);
+			result.setPageSize(pageSize);
+			int total = count;
+			result.setTotal(total);
+		} else {
+			result.setTotal(0);
+			result.setCurrentPage(page);
+			result.setDatas(new ArrayList<T>());
+		}
+		return result;
+	}
+
+	@Override
+	public <T> T load(int id, Class<T> clazz) {
+		return (T) sessionFactory.getCurrentSession().load(clazz, id);
 	}
 
 }

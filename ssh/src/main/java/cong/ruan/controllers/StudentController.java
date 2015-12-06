@@ -12,11 +12,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import cong.ruan.beanobj.BaseObj;
 import cong.ruan.beanobj.StudentObj;
 import cong.ruan.services.StudentService;
 
 @Controller
-@RequestMapping("/aaa")
 public class StudentController {
 
 	@Resource
@@ -29,8 +29,8 @@ public class StudentController {
 	}
 	
 	@RequestMapping("pageStu")
-	public @ResponseBody StudentObj pageStudent(Integer page,Integer pageSize) {
-		StudentObj stuObj = stuService.getPageStudent(page, pageSize);
+	public @ResponseBody BaseObj pageStudent(Integer page,Integer pageSize) {
+		BaseObj stuObj = stuService.getPageStudent(page, pageSize);
 		return stuObj;
 	}
 	
